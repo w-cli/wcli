@@ -1,6 +1,6 @@
 {
   "name": "@wcli/babel-preset-app",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "index.js",
   "description": "babel for wcli",
   "scripts": {},
