@@ -1,12 +1,11 @@
 {
-  "private": true,
   "description": "wcli for onfuns",
   "workspaces": [
     "packages/*"
   ],
   "keywords": [
-    "wcli cli",
-    "wcli"
+    "wcli",
+    "react cli"
   ],
   "author": "onfuns",
   "license": "MIT",
