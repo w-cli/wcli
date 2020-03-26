@@ -3,10 +3,10 @@
   "npmClient": "npm",
   "useWorkspaces": true,
   "packages": ["packages/*"],
-  "command": {
-    "publish": {
-      "ignoreChanges": ["package-lock.json"]
-    }
-  },
-  "ignoreChanges": ["**/*.md", "**/*.test.js", "**/test/**"]
+  "ignoreChanges": [
+    "package-lock.json",
+    "**/*.md",
+    "**/*.test.js",
+    "**/test/**"
+  ]
 }

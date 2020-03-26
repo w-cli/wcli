@@ -1,3 +1,3 @@
-### @wcli/babel-preset-babel
+## @wcli/babel-preset-babel
 
 > babel for wcli
