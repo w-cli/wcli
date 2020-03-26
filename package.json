@@ -1,0 +1,45 @@
+{
+  "private": true,
+  "description": "wcli for onfuns",
+  "workspaces": [
+    "packages/*"
+  ],
+  "keywords": [
+    "wcli cli",
+    "wcli"
+  ],
+  "author": "onfuns",
+  "license": "MIT",
+  "scripts": {
+    "test": "echo \" none \" && exit 1",
+    "bootstrap": "lerna bootstrap",
+    "publish": "lerna publish"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/w-cli/wcli.git"
+  },
+  "homepage": "https://github.com/w-cli/wcli.git#readme",
+  "prettier": "@frontend-cli/prettier-config",
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
+  },
+  "devDependencies": {
+    "@frontend-cli/prettier-config": "^1.0.3",
+    "husky": "^4.2.3",
+    "prettier": "^1.19.1",
+    "pretty-quick": "^2.0.1"
+  },
+  "dependencies": {
+    "lerna": "^3.20.2"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=8",
+    "npm": ">=5"
+  }
+}
