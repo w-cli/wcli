@@ -22,12 +22,12 @@
   "bugs": {
     "url": "https://github.com/w-cli/wcli/issues"
   },
-  "homepage": "https://github.com/w-cli/wcli/tree/master/packages/load#readme",
+  "homepage": "https://github.com/w-cli/wcli/tree/master/packages/cli#readme",
   "author": "onfuns",
   "license": "MIT",
   "dependencies": {
     "@babel/core": "^7.9.0",
-    "@wcli/babel-preset-app": "^0.0.2",
+    "@wcli/babel-preset-app": "^0.0.4",
     "babel-loader": "^8.1.0",
     "commander": "^5.0.0",
     "connect-history-api-fallback": "^1.6.0",
