@@ -1,7 +1,7 @@
 const fs = require('fs-extra')
 const { root } = require('../utils')
 const { merge } = require('lodash')
-const customConfigPath = root('.wclirc.js')
+const customConfigPath = root('.wclirc')
 
 const getUserConfig = () => {
   if (fs.existsSync(customConfigPath)) {
@@ -17,6 +17,9 @@ const {
   ts = {
     mode: false
   },
+  ssr = {
+    mode: false
+  },
   babelConfig = {}
 } = getUserConfig()
 
@@ -30,7 +33,7 @@ const getOutputStaticPath = (assets, name) => {
 const webpackConfig = merge(
   {
     entry: {
-      app: [root(`src/index.${ts.mode ? 'tsx' : 'js'}`)]
+      app: [root(`src/index`)]
     },
     output: {
       filename: getOutputStaticPath(build.assets, 'js/[name].js'),
@@ -38,6 +41,8 @@ const webpackConfig = merge(
       publicPath: '/',
       chunkFilename: getOutputStaticPath(build.assets, 'js/[name].js')
     },
+    hotload: true,
+    devMiddleware: {},
     dev: {
       devtool: 'source-map'
     },
@@ -55,6 +60,12 @@ const webpackConfig = merge(
     },
     cssConfig: {
       module: true
+    },
+    //是否是服务端渲染
+    ssr: {
+      entry: root('src/ssr'),
+      output: root('dist/server'),
+      ...ssr
     }
   },
   cfgWeback

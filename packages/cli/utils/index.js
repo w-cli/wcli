@@ -17,5 +17,6 @@ module.exports = {
   exec,
   _dir,
   root,
-  choices
+  choices,
+  util
 }

@@ -4,30 +4,14 @@ const ManifestPlugin = require('webpack-manifest-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const tsImportPluginFactory = require('ts-import-plugin')
+const { cssLoader } = require('./utils')
+
 const {
   webpack: webpackConfig,
   theme,
   babel,
   getOutputStaticPath
 } = require('.')
-
-const moduleCss = (options, modules = true) => {
-  return {
-    test: /\.less$/,
-    use: [
-      MiniCssExtractPlugin.loader,
-      {
-        loader: require.resolve('css-loader'),
-        options: { modules }
-      },
-      {
-        loader: require.resolve('less-loader'),
-        options: { modifyVars: theme, javascriptEnabled: true }
-      }
-    ],
-    ...options
-  }
-}
 
 const {
   entry = {},
@@ -40,11 +24,11 @@ const {
   cssConfig = {}
 } = webpackConfig
 
-module.exports = {
+const baseConfig = {
   entry,
   output,
   resolve: {
-    extensions: ['.js', '.jsx', '.ts', '.tsx'],
+    extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
     alias: {
       '@': src,
       ...alias
@@ -95,16 +79,18 @@ module.exports = {
           require.resolve('css-loader')
         ]
       },
-      moduleCss(
-        { include: [`${src}/pages`, `${src}/components`] },
-        cssConfig.module
-      ),
-      moduleCss(
-        {
-          exclude: [`${src}/pages`, `${src}/components`]
-        },
-        false
-      ),
+      cssLoader({
+        extraLoader: MiniCssExtractPlugin.loader,
+        modules: cssConfig.module,
+        include: [`${src}/pages`, `${src}/components`],
+        theme
+      }),
+      cssLoader({
+        extraLoader: MiniCssExtractPlugin.loader,
+        modules: false,
+        exclude: [`${src}/pages`, `${src}/components`],
+        theme
+      }),
       {
         test: /\.(svg|woff2?|ttf|eot|jpe?g|png|gif)(\?.*)?$/i,
         exclude: /node_modules/,
@@ -136,3 +122,5 @@ module.exports = {
     ...plugins
   ]
 }
+
+module.exports = baseConfig

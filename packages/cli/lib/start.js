@@ -7,12 +7,20 @@ const webpackDevMiddleware = require('webpack-dev-middleware')
 const webpackHotMiddleware = require('webpack-hot-middleware')
 const chalk = require('chalk')
 const app = express()
-const { choices } = require('../utils')
+const { choices, util } = require('../utils')
+const rimraf = util.promisify(require('rimraf'))
 const {
-  webpack: { port: cfgPort, proxy = {}, output = {} } = {}
+  webpack: {
+    port: cfgPort,
+    proxy = {},
+    output = {},
+    hotload,
+    devMiddleware: devMiddlewareConfig
+  } = {}
 } = require('../config')
 
 module.exports = async ({ port }) => {
+  await rimraf(output.path) //删除打包文件
   const { version } = await inquirer.prompt(choices())
   port && (process.env.RUN_PORT = port)
   process.env.RUN_TYPE = 'START'
@@ -29,9 +37,11 @@ module.exports = async ({ port }) => {
   app.use(history({ rewrites: [{ from: /\w+\.html/, to: '/' }] }))
   const devMiddleware = webpackDevMiddleware(compiler, {
     publicPath: output.publicPath,
-    quiet: true
+    quiet: true,
+    writeToDisk: false,
+    ...devMiddlewareConfig
   })
-  app.use(webpackHotMiddleware(compiler))
+  hotload && app.use(webpackHotMiddleware(compiler))
   app.use(devMiddleware)
   const startPort = port || cfgPort
   const uri = 'http://localhost:' + startPort
@@ -39,6 +49,6 @@ module.exports = async ({ port }) => {
     console.log(chalk.green('> Listening at ' + uri + '\n'))
   })
   app.listen(startPort, function(err) {
-    if (err) return console.log(err)
+    if (err) console.log(err)
   })
 }
