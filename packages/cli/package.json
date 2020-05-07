@@ -1,6 +1,6 @@
 {
   "name": "@wcli/cli",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "cli for onfuns",
   "bin": {
     "wcli": "bin/index.js"
@@ -27,7 +27,7 @@
   "license": "MIT",
   "dependencies": {
     "@babel/core": "^7.9.0",
-    "@wcli/babel-preset-app": "^0.0.5",
+    "@wcli/babel-preset-app": "^0.0.6",
     "babel-loader": "^8.1.0",
     "commander": "^5.0.0",
     "connect-history-api-fallback": "^1.6.0",
