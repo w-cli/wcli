@@ -16,7 +16,8 @@ const {
     output = {},
     hotload,
     devMiddleware: devMiddlewareConfig
-  } = {}
+  } = {},
+  injectWebpack
 } = require('../config')
 
 module.exports = async ({ port }) => {
@@ -25,7 +26,10 @@ module.exports = async ({ port }) => {
   port && (process.env.RUN_PORT = port)
   process.env.RUN_TYPE = 'START'
   process.env.RUN_ENV = version
-  const webpackConfig = require('../config/webpack.config.dev')
+  let webpackConfig = require('../config/webpack.config.dev')
+  if (typeof injectWebpack === 'function') {
+    webpackConfig = injectWebpack(webpackConfig)
+  }
   const compiler = webpack(webpackConfig)
   Object.keys(proxy).forEach(context => {
     const options = proxy[context]

@@ -9,7 +9,7 @@ baseWebpackConfig.entry = {
 }
 
 if (hotload) {
-  baseWebpackConfig.entry.app.unshfit(
+  baseWebpackConfig.entry.app.unshift(
     require.resolve('webpack-hot-middleware/client')
   )
   baseWebpackConfig.plugins.push(new webpack.HotModuleReplacementPlugin())

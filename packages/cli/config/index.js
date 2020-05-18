@@ -20,7 +20,8 @@ const {
   ssr = {
     mode: false
   },
-  babelConfig = {}
+  babelConfig = {},
+  injectWebpack = undefined
 } = getUserConfig()
 
 const { build = {} } = cfgWeback
@@ -82,6 +83,7 @@ const babel = merge(
 
 module.exports = {
   webpack: webpackConfig,
+  injectWebpack,
   theme,
   envs,
   babel,

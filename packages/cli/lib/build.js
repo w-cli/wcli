@@ -1,6 +1,6 @@
 const webpack = require('webpack')
 const chalk = require('chalk')
-const { webpack: { output, ssr } = {} } = require('../config')
+const { webpack: { output, ssr } = {}, injectWebpack } = require('../config')
 const { util } = require('../utils')
 const rimraf = util.promisify(require('rimraf'))
 
@@ -13,6 +13,9 @@ module.exports = async ({ type = 'dev' }) => {
   if (type === 'ssr') {
     dist = ssr.output
     webpackConfig = require('../config/webpack.config.ssr')
+  }
+  if (typeof injectWebpack === 'function') {
+    webpackConfig = injectWebpack(webpackConfig)
   }
   await rimraf(dist)
   webpack(webpackConfig, (err, stats) => {
