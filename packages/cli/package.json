@@ -1,7 +1,7 @@
 {
   "name": "@wcli/cli",
-  "version": "0.0.7",
-  "description": "cli for onfuns",
+  "version": "0.0.8",
+  "description": "react cli",
   "bin": {
     "wcli": "bin/index.js"
   },

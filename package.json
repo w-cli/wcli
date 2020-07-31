@@ -27,6 +27,7 @@
   },
   "devDependencies": {
     "@frontend-cli/prettier-config": "^1.0.3",
+    "cz-conventional-changelog": "^3.2.0",
     "husky": "^4.2.3",
     "prettier": "^1.19.1",
     "pretty-quick": "^2.0.1"
@@ -40,5 +41,10 @@
   "engines": {
     "node": ">=8",
     "npm": ">=5"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }

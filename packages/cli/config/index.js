@@ -1,27 +1,22 @@
-const fs = require('fs-extra')
+const { existsSync } = require('fs-extra')
 const { root } = require('../utils')
 const { merge } = require('lodash')
-const customConfigPath = root('.wclirc')
 
+const CONFIG_FILES = ['.wclirc.ts', '.wclirc.js', '.wclirc']
 const getUserConfig = () => {
-  if (fs.existsSync(customConfigPath)) {
-    return require(customConfigPath)
-  }
-  return {}
+  const configFile = CONFIG_FILES.find(f => existsSync(root(f)))
+  return configFile ? require(configFile) : {}
 }
 
 const {
   webpack: cfgWeback = {},
   theme = {},
   envs,
-  ts = {
-    mode: false
-  },
   ssr = {
     mode: false
   },
   babelConfig = {},
-  injectWebpack = undefined
+  injectWebpack = () => {}
 } = getUserConfig()
 
 const { build = {} } = cfgWeback
@@ -60,8 +55,9 @@ const webpackConfig = merge(
       hash: true
     },
     cssConfig: {
-      module: true
+      module: true //如果设置true,则默认pages、components 目录会module处理
     },
+    injectWebpack: config => config, // 在最后准备构建的时候暴露出的配置，可以定制化
     //是否是服务端渲染
     ssr: {
       entry: root('src/ssr'),
@@ -73,9 +69,9 @@ const webpackConfig = merge(
 )
 
 //babel自定义配置
-const babel = merge(
+const babelMergeConfig = merge(
   {
-    include: [customConfigPath],
+    include: [],
     plugins: []
   },
   babelConfig
@@ -86,6 +82,6 @@ module.exports = {
   injectWebpack,
   theme,
   envs,
-  babel,
+  babel: babelMergeConfig,
   getOutputStaticPath
 }
