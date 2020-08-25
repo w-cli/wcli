@@ -8,13 +8,13 @@ program
   .command('start')
   .description('start dev')
   .option('-p, --port <port>', 'start dev port')
-  .action(require('../lib/start'))
+  .action(require('../lib/start').default)
 
 program
   .command('build')
   .description('build package')
   .option('-t, --type <type>', 'build type')
-  .action(require('../lib/build'))
+  .action(require('../lib/build').default)
 
 program.on('command:*', () => {
   console.error(

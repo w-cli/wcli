@@ -29,7 +29,8 @@ module.exports = function(context, options = {}) {
       }
     ],
     require('@babel/plugin-transform-runtime').default,
-    require('@babel/plugin-transform-modules-commonjs').default
+    require('@babel/plugin-transform-modules-commonjs').default,
+    require('./plugins/auto-css-module').default
   ]
   return {
     sourceType: 'unambiguous',
