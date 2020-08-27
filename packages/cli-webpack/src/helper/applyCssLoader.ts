@@ -1,6 +1,6 @@
 import { IConfig } from '../config'
 const applyCss = (rule, config: IConfig, cssModule: boolean) => {
-  const { styleLoader, ssr = false, theme = {} } = config
+  const { styleLoader = {}, ssr = false, theme = {} } = config
   //prettier-ignore
   if(styleLoader.enable){
     rule

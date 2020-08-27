@@ -1,5 +1,6 @@
 import applyJsLoader from './helper/applyJsLoader'
 import applyCssLoader from './helper/applyCssLoader'
+import applyOtherLoader from './helper/applyOtherLoader'
 import applyPlugin from './helper/applyPlugin'
 import applySsr from './helper/applySsr'
 import WebpackChain from 'webpack-chain'
@@ -56,7 +57,8 @@ const initConfig = ({ mode }) => {
 
   applyJsLoader(webpackConfig, config, root)
   applyCssLoader(webpackConfig, config)
-  applyPlugin(webpackConfig, config, root)
+  applyOtherLoader(webpackConfig)
+  applyPlugin(webpackConfig, config, root, __DEV__)
   ssr && applySsr(webpackConfig)
 
   return webpackConfig

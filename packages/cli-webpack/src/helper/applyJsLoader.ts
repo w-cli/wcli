@@ -5,7 +5,7 @@ export default (
   config: IConfig,
   root: (args?: any) => string
 ) => {
-  const { babelLoader, tsLoader } = config
+  const { babelLoader = {}, tsLoader = {} } = config
   // prettier-ignore
   webpackConfig.module
     .rule('js-rule')

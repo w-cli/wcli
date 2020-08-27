@@ -5,15 +5,15 @@ import { IConfig } from '../config'
 export default (
   webpackConfig,
   config: IConfig,
-  root: (args?: any) => string
+  root: (args?: any) => string,
+  __DEV__: boolean
 ) => {
   const {
     defines,
     htmlWebpackConfig,
     ssr,
     assets,
-    hotload,
-    __DEV__,
+    hotload = true,
     devtool,
     splitChunks,
     analyze
@@ -46,9 +46,9 @@ export default (
     .plugin('webpack.DefinePlugin')
       .use(webpack.DefinePlugin,[
         {
-          'process.env': JSON.stringify(getEnvList)
+          'process.env': JSON.stringify(getEnvList())
         }
-      ])
+      ]).end()
   // prettier-ignore
   if(!ssr){
     webpackConfig

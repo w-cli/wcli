@@ -8,6 +8,7 @@ import chalk from 'chalk'
 import util from 'util'
 import rimraf from 'rimraf'
 import { initConfig, config } from './core'
+import { setEnv } from './helper/applyEnv'
 const rimrafAsync = util.promisify(rimraf)
 const app = express()
 
@@ -22,8 +23,7 @@ export default async ({ port, version }: any = {}) => {
     port: defaultPort
   } = config
   await rimrafAsync(output)
-  process.env.WCLI_RUN_TYPE = 'START'
-  process.env.WCLI_RUN_ENV = version
+  setEnv({ WCLI_RUN_TYPE: 'START', WCLI_RUN_ENV: version })
   let webpackConfig = initConfig({ mode: 'development' })
   if (typeof webpackChain === 'function') {
     webpackConfig = webpackChain(webpackConfig)

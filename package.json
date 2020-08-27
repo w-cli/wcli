@@ -13,7 +13,7 @@
     "test": "echo \" none \" && exit 1",
     "bootstrap": "lerna bootstrap",
     "publish": "lerna publish",
-    "build": "tsc -b"
+    "build": "lerna run build"
   },
   "repository": {
     "type": "git",
