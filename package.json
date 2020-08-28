@@ -13,6 +13,7 @@
     "test": "echo \" none \" && exit 1",
     "bootstrap": "lerna bootstrap",
     "publish": "lerna publish",
+    "publish:git": "lerna publish from-git",
     "build": "lerna run build"
   },
   "repository": {
