@@ -3,7 +3,12 @@
   "version": "1.0.0",
   "main": "lib/index.js",
   "description": "babel for wcli",
-  "scripts": {},
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "build": "tsc -b"
+  },
   "dependencies": {
     "@babel/core": "^7.4.5",
     "@babel/plugin-proposal-class-properties": "^7.4.4",
