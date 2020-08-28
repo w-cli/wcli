@@ -17,10 +17,10 @@ export default (
         .options({
           babelrc: false,
           configFile: false,
-          cacheDirectory: true,
-          cacheCompression: false,
-          presets: [require.resolve('@wcli/babel-preset-app')],
-          ...(babelLoader.options || {})
+          cacheDirectory: babelLoader.cacheDirectory || true,
+          cacheCompression: babelLoader.cacheCompression || false,
+          presets: [require.resolve('@wcli/babel-preset-app'),...(babelLoader.presets || [])],
+          plugins:[...(babelLoader.plugins || [])]
         })
         .end()
       .use('ts-loader')
@@ -37,7 +37,7 @@ export default (
             ]
           }),
           compilerOptions: { module: 'es2015' },
-          ...(tsLoader.options || {})
+          ...tsLoader
         })
         .end()
 }
