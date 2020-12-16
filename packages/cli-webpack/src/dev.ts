@@ -22,7 +22,7 @@ export default async ({ port, version }: any = {}) => {
     hotload = true,
     port: defaultPort
   } = config
-  await rimrafAsync(output)
+  output && (await rimrafAsync(output))
   setEnv({ WCLI_RUN_TYPE: 'START', WCLI_RUN_ENV: version })
   let webpackConfig = initConfig({ mode: 'development' })
   if (typeof webpackChain === 'function') {

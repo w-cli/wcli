@@ -18,6 +18,7 @@ export interface IConfig {
   devMiddlewareConfig: Record<string, any>
   htmlWebpackConfig: Record<string, any>
   devtool: string
+  tsModule: boolean
   babelLoader: Record<string, any>
   tsLoader: Record<string, any>
   cssLoader: Record<string, any>
@@ -27,6 +28,7 @@ export interface IConfig {
   templateConfig: Record<string, any>
   splitChunks: Record<string, any>
   defines: Record<string, any>
+  versions: Record<string, any>
   [k: string]: any
 }
 

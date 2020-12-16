@@ -14,7 +14,7 @@ export default async ({ type }) => {
   if (typeof webpackChain === 'function') {
     webpackConfig = webpackChain(webpackConfig)
   }
-  await rimrafAsync(output)
+  output && (await rimrafAsync(output))
   webpack(webpackConfig.toConfig(), (err, stats) => {
     if (err) throw err
     console.log(

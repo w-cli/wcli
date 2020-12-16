@@ -13,7 +13,7 @@ const initConfig = ({ mode }) => {
 
   const {
     entry = {
-      app: `${src}/index.tsx`
+      app: `${src}/index.${config.tsModule ? 'tsx' : 'js'}`
     },
     assets = 'static',
     extensions = ['.js', '.jsx', '.ts', '.tsx', '.json'],

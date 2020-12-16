@@ -9,7 +9,7 @@ export default (
   __DEV__: boolean
 ) => {
   const {
-    defines,
+    defines = {},
     htmlWebpackConfig,
     ssr,
     assets,
