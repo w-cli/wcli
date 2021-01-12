@@ -1,6 +1,6 @@
 {
   "name": "@wcli/cli-webpack",
-  "version": "1.0.0-beta.4",
+  "version": "1.0.1-beta.0",
   "description": "webpack for wcli",
   "main": "lib/index.js",
   "files": [
@@ -28,7 +28,7 @@
   "dependencies": {
     "@babel/core": "^7.9.0",
     "@babel/runtime": "^7.11.2",
-    "@wcli/babel-preset-app": "^1.0.0-beta.2",
+    "@wcli/babel-preset-app": "^1.0.1-beta.0",
     "babel-loader": "^8.1.0",
     "connect-history-api-fallback": "^1.6.0",
     "core-js": "^3.6.5",
