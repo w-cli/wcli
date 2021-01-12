@@ -9,12 +9,12 @@
 ```js
 module.exports = {
   entry: {}, //入口
-  output: {}, //输出目录
+  output: './dist' //输出目录
   hotload: true, //是否热更新
-  proxy: {}, //接口代理
+  proxy: {}, //代理
+  devMiddlewareConfig:{}, //webpack-dev-middleware配置
   port: 8081 //启动端口号 ，可以通过命令行设置
   theme: {}, //主题配置，js文件
-  envs: ['dev', 'sit'], //启动、构建环境
   webpackChain:(config) => config  //webpack-chain实例
 }
 ```
@@ -23,8 +23,8 @@ module.exports = {
 
 ## 环境变量：
 
-- `process.env.WCLI_RUN_TYPE`: 启动方式
-  - `START`: 启动模式
+- `process.env.WCLI_RUN_TYPE`: 执行方式
+  - `START`: 开发模式
   - `BUILD`: 构建模式
 - `process.env.WCLI_RUN_ENV`: 启动或构建环境，如`dev`
 

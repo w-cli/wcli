@@ -12,14 +12,19 @@ import { setEnv } from './helper/applyEnv'
 const rimrafAsync = util.promisify(rimraf)
 const app = express()
 
-export default async ({ port, version }: any = {}) => {
+type IProps = {
+  port: string
+  version: string | undefined
+}
+
+export default async ({ port, version }: IProps) => {
   const {
     output,
     webpackChain,
-    proxy = {},
+    proxy,
     publicPath,
-    devMiddlewareConfig = {},
-    hotload = true,
+    devMiddlewareConfig,
+    hotload,
     port: defaultPort
   } = config
   output && (await rimrafAsync(output))
@@ -46,9 +51,10 @@ export default async ({ port, version }: any = {}) => {
   hotload && app.use(webpackHotMiddleware(compiler))
   app.use(devMiddleware)
   const startPort = port || defaultPort
-  const uri = 'http://localhost:' + startPort
   devMiddleware.waitUntilValid(() => {
-    console.log(chalk.green('> Listening at ' + uri + '\n'))
+    console.log(
+      chalk.green('> Listening at http://localhost:' + startPort + '\n')
+    )
   })
   app.listen(startPort, err => {
     if (err) console.log(err)

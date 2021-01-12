@@ -1,4 +1,5 @@
-export default webpackConfig => {
+import Config from 'webpack-chain'
+export default (webpackConfig: Config) => {
   // prettier-ignore
   webpackConfig.module
   .rule('url-loader')

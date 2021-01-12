@@ -1,11 +1,12 @@
 import tsImportPluginFactory from 'ts-import-plugin'
 import { IConfig } from '../config'
+import Config from 'webpack-chain'
 export default (
-  webpackConfig,
+  webpackConfig: Config,
   config: IConfig,
   root: (args?: any) => string
 ) => {
-  const { babelLoader = {}, tsLoader = {}, tsModule = true } = config
+  const { babelLoader, tsLoader, tsModule } = config
   // prettier-ignore
   const rule =  webpackConfig.module
   .rule('js-loader-rule')

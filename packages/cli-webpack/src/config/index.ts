@@ -3,20 +3,22 @@ import { join } from 'path'
 import _ from 'lodash'
 
 export interface IConfig {
-  entry: Record<string, any>
+  entry: {}
   port: number
-  proxy: any
+  proxy: {}
   publicPath: string
   assets: string
   extensions: string[]
   output: string
-  alias: Record<string, any>
+  libraryTarget: string
+  library: string
+  alias: {}
   hotload: boolean
   analyze: Record<string, any>
   webpackChain: (args: any) => any
-  devServer: Record<string, any>
-  devMiddlewareConfig: Record<string, any>
-  htmlWebpackConfig: Record<string, any>
+  devServer: {}
+  devMiddlewareConfig: {}
+  htmlWebpackConfig: {}
   devtool: string
   tsModule: boolean
   babelLoader: Record<string, any>
@@ -24,19 +26,49 @@ export interface IConfig {
   cssLoader: Record<string, any>
   styleLoader: Record<string, any>
   ssr: boolean
-  theme: Record<string, any>
-  templateConfig: Record<string, any>
-  splitChunks: Record<string, any>
-  defines: Record<string, any>
-  versions: Record<string, any>
-  [k: string]: any
+  theme: {}
+  templateConfig: {}
+  splitChunks: {}
+  defines: {}
+  dotenvConfig: {}
 }
 
 export const root = (name: string = '') => join(process.cwd(), '/', name)
-export const CONFIG_FILES = ['.wclirc.ts', '.wclirc.js', '.wclirc']
-const getUserConfig = () => {
-  const configFile = CONFIG_FILES.find(f => existsSync(root(f)))
-  return configFile ? require(root(configFile)) : {}
-}
+const configFile = ['.wclirc.ts', '.wclirc.js', '.wclirc'].find(f =>
+  existsSync(root(f))
+)
 
-export const config: IConfig = getUserConfig()
+const customConfig = configFile ? require(root(configFile)) : {}
+const entryFile = customConfig.tsModule ? 'index.tsx' : 'index.js'
+export const config: IConfig = {
+  entry: {
+    app: `${root('src')}/${entryFile}`
+  },
+  assets: 'static',
+  extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
+  output: root('dist'),
+  publicPath: './',
+  alias: {
+    '@': root('src')
+  },
+  splitChunks: {},
+  hotload: true,
+  devtool: '',
+  ssr: false,
+  libraryTarget: '',
+  library: '',
+  babelLoader: {},
+  tsLoader: {},
+  cssLoader: {},
+  styleLoader: {},
+  tsModule: false,
+  proxy: {},
+  devMiddlewareConfig: {},
+  defines: {},
+  dotenvConfig: {},
+  analyze: {
+    enable: false,
+    options: {}
+  },
+  ...customConfig
+}

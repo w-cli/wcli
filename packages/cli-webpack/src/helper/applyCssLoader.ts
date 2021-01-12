@@ -1,6 +1,7 @@
 import { IConfig } from '../config'
-const applyCss = (rule, config: IConfig, cssModule: boolean) => {
-  const { styleLoader = {}, ssr = false, theme = {} } = config
+import { Rule } from 'webpack-chain'
+const applyCss = (rule: Rule, config: IConfig, cssModule: boolean) => {
+  const { styleLoader, ssr, theme } = config
   //prettier-ignore
   if(styleLoader.enable){
     rule
@@ -37,7 +38,7 @@ const applyCss = (rule, config: IConfig, cssModule: boolean) => {
       })
 }
 
-export default (webpackConfig, config) => {
+export default (webpackConfig, config: IConfig) => {
   const cssRule = webpackConfig.module.rule('css-rule').test(/\.(css|less)$/)
   applyCss(cssRule.oneOf('css-modules').resourceQuery(/modules/), config, true)
   applyCss(cssRule.oneOf('css'), config, false)

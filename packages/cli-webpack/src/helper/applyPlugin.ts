@@ -1,23 +1,27 @@
 import webpack from 'webpack'
 import { setEnv, getEnv } from './applyEnv'
 import { IConfig } from '../config'
+import Config from 'webpack-chain'
 
 export default (
-  webpackConfig,
+  webpackConfig: Config,
   config: IConfig,
   root: (args?: any) => string,
   __DEV__: boolean
 ) => {
   const {
-    defines = {},
+    defines,
     htmlWebpackConfig,
     ssr,
     assets,
-    hotload = true,
+    hotload,
     devtool,
     splitChunks,
-    analyze
+    analyze,
+    dotenvConfig
   } = config
+
+  const _root = root('src')
 
   const getEnvList = () => {
     setEnv(defines)
@@ -28,27 +32,39 @@ export default (
 
   // prettier-ignore
   webpackConfig
+    .plugin('dotenv-webpack')
+      .use(require.resolve('dotenv-webpack'),[
+        {
+          path:`${_root}/.env`,
+          ...dotenvConfig
+        }
+      ])
+    .end()
     .plugin('webpack-manifest-plugin')
-      .use(require.resolve('webpack-manifest-plugin')).end()
+      .use(require.resolve('webpack-manifest-plugin'))
+    .end()
     .plugin('progress-bar-webpack-plugin')
       .use(require.resolve('progress-bar-webpack-plugin'),[
         { summary: false }
-      ]).end()
+      ])
+    .end()
     .plugin('html-webpack-plugin')
       .use(require.resolve('html-webpack-plugin'),[
         {
-          template: `${root('src')}/index.html`,
+          template: `${_root}/index.html`,
           inject: true,
           hash: true,
           ...htmlWebpackConfig
         }
-      ]).end()
+      ])
+    .end()
     .plugin('webpack.DefinePlugin')
       .use(webpack.DefinePlugin,[
         {
           'process.env': JSON.stringify(getEnvList())
         }
-      ]).end()
+      ])
+    .end()
   // prettier-ignore
   if(!ssr){
     webpackConfig
@@ -61,7 +77,8 @@ export default (
             ignoreOrder: true,
           },
         ],
-      ).end()
+      )
+    .end()
   }
 
   // prettier-ignore
@@ -70,7 +87,7 @@ export default (
       webpackConfig
         .plugin('webpack.HotModuleReplacementPlugin')
           .use((webpack as any).HotModuleReplacementPlugin)
-          .end()
+        .end()
     }
   })
   webpackConfig.when(!__DEV__, webpackConfig => {
@@ -98,7 +115,7 @@ export default (
             test: /[\\/]node_modules[\\/][\\/]/
           }
         },
-        ...(splitChunks || {})
+        ...splitChunks
       })
       .runtimeChunk(false)
   })
@@ -108,7 +125,7 @@ export default (
       .plugin('webpack-bundle-analyzer')
         .use(require("webpack-bundle-analyzer").BundleAnalyzerPlugin,[
           {
-            ...(analyze.options || {})
+            ...analyze.options
           }
         ])
   }
