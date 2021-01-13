@@ -28,14 +28,6 @@ export default (
 
   // prettier-ignore
   webpackConfig
-    .plugin('dotenv-webpack')
-      .use(require.resolve('dotenv-webpack'),[
-        {
-          path:`${root()}/.env`,
-          ...dotenvConfig
-        }
-      ])
-    .end()
     .plugin('webpack-manifest-plugin')
       .use(require.resolve('webpack-manifest-plugin'))
     .end()

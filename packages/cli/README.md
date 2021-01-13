@@ -8,12 +8,13 @@
 
 ```js
 module.exports = {
+  port: 8081 //启动端口号 ，可以通过命令行设置
   entry: {}, //入口
   output: './dist' //输出目录
   hotload: true, //是否热更新
   proxy: {}, //代理
   devMiddlewareConfig:{}, //webpack-dev-middleware配置
-  port: 8081 //启动端口号 ，可以通过命令行设置
+  defines:{},//自定义环境变量
   theme: {}, //主题配置，js文件
   webpackChain:(config) => config  //webpack-chain实例
 }
