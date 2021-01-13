@@ -1,6 +1,6 @@
 {
   "name": "@wcli/cli",
-  "version": "1.0.2-beta.0",
+  "version": "1.0.4-beta.0",
   "description": "cli",
   "bin": {
     "wcli": "bin/index.js"
