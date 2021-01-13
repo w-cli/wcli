@@ -30,7 +30,6 @@ export interface IConfig {
   templateConfig: {}
   splitChunks: {}
   defines: {}
-  dotenvConfig: {}
 }
 
 export const root = (name: string = '.') => join(process.cwd(), name)
@@ -66,7 +65,6 @@ export const config: IConfig = {
   devMiddlewareConfig: {},
   htmlWebpackConfig: {},
   defines: {},
-  dotenvConfig: {},
   analyze: {
     enable: false,
     options: {}

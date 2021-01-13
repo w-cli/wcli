@@ -17,8 +17,7 @@ export default (
     hotload,
     devtool,
     splitChunks,
-    analyze,
-    dotenvConfig
+    analyze
   } = config
 
   const getEnvList = () => {
