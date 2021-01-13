@@ -26,7 +26,6 @@ module.exports = {
 - `process.env.WCLI_RUN_TYPE`: 执行方式
   - `START`: 开发模式
   - `BUILD`: 构建模式
-- `process.env.WCLI_RUN_ENV`: 启动或构建环境，如`dev`
 
 ## 启动
 

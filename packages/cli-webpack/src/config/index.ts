@@ -19,7 +19,7 @@ export interface IConfig {
   devServer: {}
   devMiddlewareConfig: {}
   htmlWebpackConfig: {}
-  devtool: string
+  devtool: 'cheap-module-source-map' | boolean
   tsModule: boolean
   babelLoader: Record<string, any>
   tsLoader: Record<string, any>
@@ -33,7 +33,7 @@ export interface IConfig {
   dotenvConfig: {}
 }
 
-export const root = (name: string = '') => join(process.cwd(), '/', name)
+export const root = (name: string = '.') => join(process.cwd(), name)
 const configFile = ['.wclirc.ts', '.wclirc.js', '.wclirc'].find(f =>
   existsSync(root(f))
 )
@@ -47,15 +47,15 @@ export const config: IConfig = {
   assets: 'static',
   extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
   output: root('dist'),
-  publicPath: './',
+  publicPath: '',
   alias: {
     '@': root('src')
   },
   splitChunks: {},
   hotload: true,
-  devtool: '',
+  devtool: false,
   ssr: false,
-  libraryTarget: '',
+  libraryTarget: 'var',
   library: '',
   babelLoader: {},
   tsLoader: {},
@@ -64,6 +64,7 @@ export const config: IConfig = {
   tsModule: false,
   proxy: {},
   devMiddlewareConfig: {},
+  htmlWebpackConfig: {},
   defines: {},
   dotenvConfig: {},
   analyze: {

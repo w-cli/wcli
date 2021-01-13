@@ -14,26 +14,25 @@ const app = express()
 
 type IProps = {
   port: string
-  version: string | undefined
 }
 
-export default async ({ port, version }: IProps) => {
+export default async ({ port }: IProps) => {
   const {
     output,
     webpackChain,
     proxy,
-    publicPath,
     devMiddlewareConfig,
     hotload,
     port: defaultPort
   } = config
   output && (await rimrafAsync(output))
-  setEnv({ WCLI_RUN_TYPE: 'START', WCLI_RUN_ENV: version })
+  setEnv({ WCLI_RUN_TYPE: 'START' })
   let webpackConfig = initConfig({ mode: 'development' })
   if (typeof webpackChain === 'function') {
     webpackConfig = webpackChain(webpackConfig)
   }
-  const compiler = webpack(webpackConfig.toConfig())
+  const webpackConfigObj = webpackConfig.toConfig()
+  const compiler = webpack(webpackConfigObj)
   Object.keys(proxy).forEach(context => {
     let options = proxy[context]
     if (typeof options === 'string') {
@@ -43,7 +42,7 @@ export default async ({ port, version }: IProps) => {
   })
   app.use(history({ rewrites: [{ from: /\w+\.html/, to: '/' }] }))
   const devMiddleware = webpackDevMiddleware(compiler, {
-    publicPath: publicPath,
+    publicPath: webpackConfigObj.output.publicPath,
     quiet: true,
     writeToDisk: false,
     ...devMiddlewareConfig

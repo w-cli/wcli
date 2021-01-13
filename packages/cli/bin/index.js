@@ -12,8 +12,7 @@ program
 
 program
   .command('build')
-  .description('build package')
-  .option('-t, --type <type>', 'build type')
+  .description('build')
   .action(require('../lib/build').default)
 
 program.on('command:*', () => {

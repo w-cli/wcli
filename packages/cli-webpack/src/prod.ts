@@ -6,10 +6,9 @@ import { initConfig, config } from './core'
 import { setEnv } from './helper/applyEnv'
 const rimrafAsync = util.promisify(rimraf)
 
-export default async ({ type }) => {
+export default async () => {
   const { output, webpackChain } = config
-  setEnv({ WCLI_RUN_TYPE: 'BUILD', WCLI_RUN_ENV: type })
-  console.log(chalk.green(`You are building ${type} version`))
+  setEnv({ WCLI_RUN_TYPE: 'BUILD' })
   let webpackConfig = initConfig({ mode: 'production' })
   if (typeof webpackChain === 'function') {
     webpackConfig = webpackChain(webpackConfig)

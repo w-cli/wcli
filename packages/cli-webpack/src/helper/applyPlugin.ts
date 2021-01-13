@@ -21,13 +21,9 @@ export default (
     dotenvConfig
   } = config
 
-  const _root = root('src')
-
   const getEnvList = () => {
     setEnv(defines)
-    return getEnv(
-      ['WCLI_RUN_TYPE', 'WCLI_RUN_ENV'].concat(Object.keys(defines))
-    )
+    return getEnv(['WCLI_RUN_TYPE'].concat(Object.keys(defines)))
   }
 
   // prettier-ignore
@@ -35,7 +31,7 @@ export default (
     .plugin('dotenv-webpack')
       .use(require.resolve('dotenv-webpack'),[
         {
-          path:`${_root}/.env`,
+          path:`${root()}/.env`,
           ...dotenvConfig
         }
       ])
@@ -51,7 +47,7 @@ export default (
     .plugin('html-webpack-plugin')
       .use(require.resolve('html-webpack-plugin'),[
         {
-          template: `${_root}/index.html`,
+          template: `${root('src')}/index.html`,
           inject: true,
           hash: true,
           ...htmlWebpackConfig

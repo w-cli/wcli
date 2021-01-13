@@ -35,8 +35,9 @@ const initConfig = ({ mode }) => {
   // prettier-ignore
   webpackConfig
     .mode(mode)
-    .devtool(devtool || __DEV__ ? 'cheap-module-source-map' : false)
-    .output.path(output)
+    .devtool(__DEV__ ?  devtool || 'cheap-module-source-map' : devtool)
+    .output
+      .path(output)
       .publicPath(publicPath)
       .filename(`${assets}/js/[name].js`)
       .chunkFilename(`${assets}/js/[name].js`)
